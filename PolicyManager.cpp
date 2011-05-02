@@ -103,12 +103,36 @@ void PolicyManager::policyMenu(void)
 }
 
 // Display the employees and user selects one
-int PolicyManager::selectEmployee(void)
+int PolicyManager::selectSalesperson(void)
+{
+}
+
+// Display the managers and user selects one
+int PolicyManager::selectManager(void)
+{
+	return 0;
+}
+
+// Display employees to assign the policy
+void PolicyManager::assignPolicy(Policy *p)
+{
+	unsigned int c = 0;
+	while(c == 0)
+	{
+		cout << endl << "Assign Policy To Employee" << endl;
+		c = this->selectEmployee();
+	}
+	this->employees.at(c - 1)->addPolicy(p);
+	return;
+}
+
+// Display employees and select. If isManager != 0, then show only managers.
+int PolicyManager::selectEmployee(int isManager)
 {
 	unsigned int e = 0;
 	while(e == 0)
 	{
-		this->showAllEmployees();
+		this->showAllEmployees(isManager);
 		cout << "  Enter selection: ";
 		cin >> e;
 		if(e > this->employees.size())
@@ -118,19 +142,6 @@ int PolicyManager::selectEmployee(void)
 		}
 	}
 	return e;
-}
-
-// Display employees to assign the policy
-void PolicyManager::assignPolicy(Policy *p)
-{
-	unsigned int c = 0;
-	while(c == 0)
-	{
-		cout << "Assign Policy To Employee" << endl;
-		c = this->selectEmployee();
-	}
-	this->employees.at(c - 1)->addPolicy(p);
-	return;
 }
 
 // Display menu, create, append employee to vector
@@ -163,6 +174,12 @@ void PolicyManager::employeeMenu(void)
 		this->employees.push_back(e);
 		e->inputEmployee();
 	}
+	return;
+}
+
+// Display managers to assign employees
+void PolicyManager::assignManager(Manager *m)
+{
 	return;
 }
 

@@ -6,7 +6,6 @@ Employee::Employee()
   this->baseSalary = 0.0;
   this->commissions = 0.0;
   this->totalSalary = 0.0;
-  this->policyList.clear();
   return;
 }
 
@@ -23,12 +22,6 @@ void Employee::inputEmployee(void)
 	cout << "Enter base salary: ";
 	cin >> this->baseSalary;
 
-	return;
-}
-
-void Employee::addPolicy(Policy *p) // Add a policy to the policyList
-{
-	this->policyList.push_back(p);
 	return;
 }
 

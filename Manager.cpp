@@ -2,11 +2,18 @@
 
 Manager::Manager()
 {
-	// TODO Auto-generated constructor stub
-
+  this->salespersonList.clear();
 }
 
 Manager::~Manager()
 {
-	// TODO Auto-generated destructor stub
+	return;
 }
+
+// Add a Salesperson to the salespersonList
+void Manager::addSalesperson(Salesperson *p)
+{
+	this->salespersonList.push_back(p);
+	return;
+}
+

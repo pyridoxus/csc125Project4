@@ -2,11 +2,18 @@
 
 Salesperson::Salesperson()
 {
-	// TODO Auto-generated constructor stub
-
+  this->policyList.clear();
+  return;
 }
 
 Salesperson::~Salesperson()
 {
-	// TODO Auto-generated destructor stub
+	return;
 }
+
+void Salesperson::addPolicy(Policy *p) // Add a policy to the policyList
+{
+	this->policyList.push_back(p);
+	return;
+}
+
