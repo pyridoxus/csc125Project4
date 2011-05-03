@@ -11,7 +11,7 @@ Employee::Employee()
 
 Employee::~Employee()
 {
-	// TODO Auto-generated destructor stub
+	return;
 }
 
 void Employee::inputEmployee(void)
@@ -33,7 +33,21 @@ string Employee::getName(void)
 
 ostream &operator<<(ostream &s, const Employee &e)
 {
-  s << e.name << endl;
-  return s;
+	s.width(20);
+	s << e.name;
+	s << " | " << e.totalSalary << endl;
+	return s;
+}
+
+// Calculate total salary only after the commissions and base salary are known.
+void Employee::calcTotalSalary(void)
+{
+	this->totalSalary = this->baseSalary + this->commissions;
+	return;
+}
+
+void Employee::calcCommission(void)
+{
+	return;
 }
 

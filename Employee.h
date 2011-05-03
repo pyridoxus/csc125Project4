@@ -19,11 +19,13 @@ class Employee
 		virtual void addPolicy(Policy *p) {};	// Add a policy to the policy list
 		virtual void addSalesperson(Salesperson *p) {};	// Add a salesperson to list
 		virtual int isManager(void) { return 0; };	// return 0, not a manager
+		virtual void calcCommission(void);	// Calculate the total salary
 	protected:
-    string name;
-    float baseSalary;
-    float commissions;
-    float totalSalary;
+		void calcTotalSalary(void);	// Calculate total salary
+		string name;
+		float baseSalary;
+		float commissions;
+		float totalSalary;
 };
 
 #endif

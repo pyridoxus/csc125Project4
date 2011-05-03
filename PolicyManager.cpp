@@ -17,14 +17,48 @@ PolicyManager::~PolicyManager()
 }
 
 // List of employees only
-void PolicyManager::showAllEmployees(void)
+// If isManager != 0, then only show managers, else only show salespeople.
+// The index shown will be the index in the main list, and not the numerical
+// order that one would expect to see on the screen.
+void PolicyManager::showAllEmployees(int isManager)
 {
+	Employee *emp;
 	unsigned int e;
-	cout << endl << "          List of Employees" << endl;
+	string s;
+	switch(isManager)
+	{
+		case EMPLOYEE_ALL:
+			s = "Employees";
+		break;
+		case EMPLOYEE_MANAGER:
+			s = "Managers";
+		break;
+		case EMPLOYEE_SALESPERSON:
+			s = "Salespeople";
+		break;
+		default:
+			s = "";
+		break;
+	}
+	cout << endl << "          List of " << s << endl;
 	cout << "-----------------------------------------" << endl;
 	for(e = 0; e < this->employees.size(); e++)
 	{
-		cout << "  " << e + 1 << ") " << *this->employees.at(e) << endl;
+		emp = this->employees.at(e);
+		switch(isManager)
+		{
+			case 0:	// Print all
+				cout << "  " << e + 1 << ") " << *emp << endl;
+			break;
+			case 1:	// Print if manager
+				if(emp->isManager())
+					cout << "  " << e + 1 << ") " << *emp << endl;
+			break;
+			case 2:	// Print if salesperson
+				if(!emp->isManager())
+					cout << "  " << e + 1 << ") " << *emp << endl;
+			break;
+		}
 	}
 	return;
 }
@@ -103,30 +137,23 @@ void PolicyManager::policyMenu(void)
 }
 
 // Display the employees and user selects one
-int PolicyManager::selectSalesperson(void)
-{
-}
-
-// Display the managers and user selects one
-int PolicyManager::selectManager(void)
-{
-	return 0;
-}
-
 // Display employees to assign the policy
 void PolicyManager::assignPolicy(Policy *p)
 {
+	Employee *emp;
 	unsigned int c = 0;
 	while(c == 0)
 	{
 		cout << endl << "Assign Policy To Employee" << endl;
-		c = this->selectEmployee();
+		c = this->selectEmployee(EMPLOYEE_SALESPERSON);
 	}
-	this->employees.at(c - 1)->addPolicy(p);
+	emp = this->employees.at(c - 1);
+	emp->addPolicy(p);	// Add policy to list inside salesperson
+	emp->calcCommission();	// Update their commissions and salary
 	return;
 }
 
-// Display employees and select. If isManager != 0, then show only managers.
+// Display employees and select.
 int PolicyManager::selectEmployee(int isManager)
 {
 	unsigned int e = 0;

@@ -48,7 +48,7 @@ int main(void)
 		switch(c)
 		{
 			case '1':
-				insurance.showAllEmployees();
+				insurance.showAllEmployees(EMPLOYEE_ALL);
 			break;
 			case '2':
 				insurance.showAllSales();
@@ -57,10 +57,12 @@ int main(void)
 				insurance.showTabularSales();
 			break;
 			case '4':
-				insurance.showEmployeeSales(insurance.selectEmployee());
+				insurance.showEmployeeSales(\
+						insurance.selectEmployee(EMPLOYEE_SALESPERSON));
 			break;
 			case '5':
-				insurance.showManagerSales(insurance.selectEmployee());
+				insurance.showManagerSales(\
+						insurance.selectEmployee(EMPLOYEE_MANAGER));
 			break;
 			case '6':
 				insurance.employeeMenu();

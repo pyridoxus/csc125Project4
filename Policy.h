@@ -9,6 +9,7 @@ class Policy
 		Policy();
 		virtual void inputPolicy(void);
 		friend ostream &operator<<(ostream &s, const Policy &p);
+		float getCommission(void);	// Return the commission amount
 	protected:
 		virtual void calculateCommission(void);
 		void inputNameOfInsured(void);

@@ -17,3 +17,8 @@ void Manager::addSalesperson(Salesperson *p)
 	return;
 }
 
+// Calculate the total salary
+void Manager::calcCommission(void)
+{
+	return;
+}

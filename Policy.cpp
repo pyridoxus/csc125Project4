@@ -24,6 +24,12 @@ void Policy::inputPolicy(void)
 	return;
 }
 
+// Return the commission amount
+float Policy::getCommission(void)
+{
+	return this->commission;
+}
+
 ostream &operator<<(ostream &s, const Policy &p)
 {
 	s.width(20);

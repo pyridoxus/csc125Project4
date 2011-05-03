@@ -11,6 +11,7 @@ class Manager: public Employee
 		virtual ~Manager();
 		virtual int isManager(void) { return -1; };	// return -1, is a manager
 		void addSalesperson(Salesperson *p); // Add a Salesperson to salespersonList
+		virtual void calcCommission(void);	// Calculate the total salary
 	private:
     // The salespersonList contains pointers to the employees that are assigned
 		// to work under this manager, and is assigned by the user.
