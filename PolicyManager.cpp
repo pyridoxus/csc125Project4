@@ -17,15 +17,17 @@ PolicyManager::~PolicyManager()
 }
 
 // List of employees only
-// If isManager != 0, then only show managers, else only show salespeople.
+// If isType == 0, then show all employees.
+// If isType == 1, only show managers.
+// If isType == 2, only show salespeople.
 // The index shown will be the index in the main list, and not the numerical
 // order that one would expect to see on the screen.
-void PolicyManager::showAllEmployees(int isManager)
+void PolicyManager::showAllEmployees(int isType)
 {
 	Employee *emp;
 	unsigned int e;
 	string s;
-	switch(isManager)
+	switch(isType)
 	{
 		case EMPLOYEE_ALL:
 			s = "Employees";
@@ -41,11 +43,12 @@ void PolicyManager::showAllEmployees(int isManager)
 		break;
 	}
 	cout << endl << "          List of " << s << endl;
-	cout << "-----------------------------------------" << endl;
+	cout << "------------------------------------------------" << endl;
+	cout << "    ----        Name      |  Total Salary   ----" << endl;
 	for(e = 0; e < this->employees.size(); e++)
 	{
 		emp = this->employees.at(e);
-		switch(isManager)
+		switch(isType)
 		{
 			case 0:	// Print all
 				cout << "  " << e + 1 << ") " << *emp << endl;
@@ -102,6 +105,11 @@ void PolicyManager::policyMenu(void)
 {
 	char c = 0;
 	Policy *p = 0;
+	if(this->getNumberEmployees(EMPLOYEE_ALL) == 0)
+	{
+		cout << "Cannot create a policy. Must create employee first." << endl;
+		return;
+	}
 	while(c == 0)
 	{
 		cout << "Add New Policy" << endl;
@@ -145,7 +153,7 @@ void PolicyManager::assignPolicy(Policy *p)
 	while(c == 0)
 	{
 		cout << endl << "Assign Policy To Employee" << endl;
-		c = this->selectEmployee(EMPLOYEE_SALESPERSON);
+		c = this->selectEmployee(EMPLOYEE_ALL);
 	}
 	emp = this->employees.at(c - 1);
 	emp->addPolicy(p);	// Add policy to list inside salesperson
@@ -154,12 +162,12 @@ void PolicyManager::assignPolicy(Policy *p)
 }
 
 // Display employees and select.
-int PolicyManager::selectEmployee(int isManager)
+int PolicyManager::selectEmployee(int isType)
 {
 	unsigned int e = 0;
 	while(e == 0)
 	{
-		this->showAllEmployees(isManager);
+		this->showAllEmployees(isType);
 		cout << "  Enter selection: ";
 		cin >> e;
 		if(e > this->employees.size())
@@ -186,7 +194,14 @@ void PolicyManager::employeeMenu(void)
 		switch(c)
 		{
 			case '1':
-				e = new Salesperson();
+				if(this->getNumberEmployees(EMPLOYEE_MANAGER) == 0)
+				{
+					cout << "Must create a manager before creating a salesperson" << endl;
+				}
+				else
+				{
+					e = new Salesperson();
+				}
 			break;
 			case '2':
 				e = new Manager();
@@ -200,6 +215,7 @@ void PolicyManager::employeeMenu(void)
 	{
 		this->employees.push_back(e);
 		e->inputEmployee();
+		e->calcCommission();
 	}
 	return;
 }
@@ -208,5 +224,31 @@ void PolicyManager::employeeMenu(void)
 void PolicyManager::assignManager(Manager *m)
 {
 	return;
+}
+
+// Return the number of employees in vector depending on isType parameter.
+// If isType == EMPLOYEE_ALL, return total number of employees.
+// If isType == EMPLOYEE_MANAGER, return number of managers.
+// If isType == EMPLOYEE_SALESPERSON, return number of salespeople.
+int PolicyManager::getNumberEmployees(int isType)
+{
+	Employee *emp;
+	int e, s, c = 0;
+	s = this->employees.size();
+	if(isType == EMPLOYEE_ALL) return s;
+	for(e = 0; e < s; e++)
+	{
+		emp = this->employees.at(e);
+		switch(isType)
+		{
+			case EMPLOYEE_MANAGER:
+				if(emp->isManager()) c++;
+			break;
+			case EMPLOYEE_SALESPERSON:
+				if(!emp->isManager()) c++;
+			break;
+		}
+	}
+	return c;
 }
 

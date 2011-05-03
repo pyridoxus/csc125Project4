@@ -35,7 +35,7 @@ ostream &operator<<(ostream &s, const Employee &e)
 {
 	s.width(20);
 	s << e.name;
-	s << " | " << e.totalSalary << endl;
+	s << " | " << e.totalSalary;
 	return s;
 }
 
@@ -46,8 +46,27 @@ void Employee::calcTotalSalary(void)
 	return;
 }
 
+// Accumulate the commissions from all sales
+float Employee::accumulateCommission(void)
+{
+	unsigned int p;
+	float s = 0.0;
+	for(p = 0; p < this->policyList.size(); p++)
+	{
+		s += this->policyList.at(p)->getCommission();
+	}
+	return s;
+}
+
+// Add a policy to the policyList
+void Employee::addPolicy(Policy *p)
+{
+	this->policyList.push_back(p);
+	return;
+}
+
+// Calc commission, depends on employee
 void Employee::calcCommission(void)
 {
 	return;
 }
-

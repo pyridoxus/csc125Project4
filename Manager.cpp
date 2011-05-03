@@ -20,5 +20,9 @@ void Manager::addSalesperson(Salesperson *p)
 // Calculate the total salary
 void Manager::calcCommission(void)
 {
+//	commission =   commission total from all sales + ( commissions total from all sales * 30% ) +
+//	                       ( commission total from all reporting salespeople * 5% )
+	this->commissions = this->accumulateCommission() * 1.3;
+	this->calcTotalSalary();
 	return;
 }
