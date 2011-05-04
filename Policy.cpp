@@ -36,7 +36,7 @@ ostream &operator<<(ostream &s, const Policy &p)
   s << p.nameOfInsured;
   s << " |";
 	s.width(20);
-  s << p.commission << endl;
+  s << p.commission;
   return s;
 }
 

@@ -2,12 +2,12 @@
 
 AutoPolicy::AutoPolicy():Policy()
 {
-	make = "";
-	model = "";
-	VIN = "";
-	liability = 0.0;
-	collision = 0.0;
-	policyType = POLICY_AUTO;
+	this->make = "";
+	this->model = "";
+	this->VIN = "";
+	this->liability = 0.0;
+	this->collision = 0.0;
+	this->policyType = POLICY_AUTO;
 	return;
 }
 
@@ -26,7 +26,7 @@ ostream &operator<<(ostream &s, const AutoPolicy &p)
   s << p.model << " ";
   s << p.VIN << " ";
   s << p.liability << " ";
-  s << p.collision << endl;
+  s << p.collision;
   return s;
 }
 

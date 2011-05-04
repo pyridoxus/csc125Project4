@@ -26,12 +26,12 @@ class PolicyManager
 		void showManagerSales(int e);	// List all sales by employees of one manager
 		void policyMenu(void);	// Display menu, create, and append policy to vector
 		void employeeMenu(void);	// Display menu, create, append employee to vector
-		int selectEmployee(int isType); // Display employees and select
+		unsigned int selectEmployee(int isType); // Display employees and select
 	private:
 		vector<Policy *> policies;
 		vector<Employee *> employees;
 		void assignPolicy(Policy *p);	// Display employees to assign the policy
-		void assignManager(Manager *m);	// Display managers to assign employees
+		void assignManager(Salesperson *e);	// Display managers to assign employee
 		int getNumberEmployees(int isType);	// Return number of type of employees
 };
 

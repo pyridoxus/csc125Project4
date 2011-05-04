@@ -23,6 +23,9 @@ class Employee
 		void addPolicy(Policy *p); // Add a policy to the policyList
 		unsigned int getNumPolicies(void);	// Return the number of policies
 		Policy *getPolicy(unsigned int p);	// Return pointer to policy at p
+		float getCommissions(void);	// Return commissions of this employee
+		virtual Employee *getManager(void) { return 0; };	// Get pointer to manager
+		virtual void setManager(Employee *) {};	// Set pointer to manager (link)
 	protected:
 		void calcTotalSalary(void);	// Calculate total salary
 		string name;

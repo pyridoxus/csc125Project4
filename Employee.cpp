@@ -83,3 +83,9 @@ Policy *Employee::getPolicy(unsigned int p)
 	if(p >= this->policyList.size()) return 0;
 	return this->policyList.at(p);
 }
+
+// Return commissions of this employee
+float Employee::getCommissions(void)
+{
+	return this->commissions;
+}

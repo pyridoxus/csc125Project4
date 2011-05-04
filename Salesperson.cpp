@@ -3,6 +3,7 @@
 Salesperson::Salesperson()
 {
   this->policyList.clear();
+  this->manager = 0;
   return;
 }
 
@@ -20,3 +21,16 @@ void Salesperson::calcCommission(void)
 	this->calcTotalSalary();
 	return;
 }
+
+// Set the manager pointer
+void Salesperson::setManager(Employee *manager)
+{
+	this->manager = manager;
+}
+
+// Get the manager pointer
+Employee *Salesperson::getManager(void)
+{
+	return this->manager;
+}
+

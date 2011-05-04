@@ -5,6 +5,7 @@ LifePolicy::LifePolicy():Policy()
 	this->age = 0;
 	this->nameOfDependent = "";
 	this->termLife = 0.0;
+	this->policyType = POLICY_LIFE;
 	return;
 }
 
@@ -21,7 +22,7 @@ ostream &operator<<(ostream &s, const LifePolicy &p)
   s << p.nameOfInsured << " ";
   s << p.age << " ";
   s << p.nameOfDependent << " ";
-  s << p.termLife << endl;
+  s << p.termLife;
   return s;
 }
 

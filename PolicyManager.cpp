@@ -191,6 +191,7 @@ void PolicyManager::policyMenu(void)
 void PolicyManager::assignPolicy(Policy *p)
 {
 	Employee *emp;
+	Employee *manager;
 	unsigned int c = 0;
 	while(c == 0)
 	{
@@ -200,11 +201,16 @@ void PolicyManager::assignPolicy(Policy *p)
 	emp = this->employees.at(c - 1);
 	emp->addPolicy(p);	// Add policy to list inside salesperson
 	emp->calcCommission();	// Update their commissions and salary
+	if(!emp->isManager())	// If salesperson, then update manager's salary
+	{
+		manager = emp->getManager();
+		manager->calcCommission();
+	}
 	return;
 }
 
 // Display employees and select.
-int PolicyManager::selectEmployee(int isType)
+unsigned int PolicyManager::selectEmployee(int isType)
 {
 	unsigned int e = 0;
 	while(e == 0)
@@ -258,13 +264,21 @@ void PolicyManager::employeeMenu(void)
 		this->employees.push_back(e);
 		e->inputEmployee();
 		e->calcCommission();
+		if(!e->isManager()) this->assignManager((Salesperson *)e);
 	}
 	return;
 }
 
 // Display managers to assign employees
-void PolicyManager::assignManager(Manager *m)
+// Employee must be a Salesperson object before calling this function
+void PolicyManager::assignManager(Salesperson *e)
 {
+	Employee *manager;
+	unsigned int m;
+	m = this->selectEmployee(EMPLOYEE_MANAGER);
+	manager = this->employees.at(m - 1);
+	manager->addSalesperson(e);
+	e->setManager(manager);
 	return;
 }
 

@@ -2,10 +2,11 @@
 
 HomePolicy::HomePolicy():Policy()
 {
-	sqFootage = 0.0;
-	dwelling = 0.0;
-	contents = 0.0;
-	liability = 0.0;
+	this->sqFootage = 0.0;
+	this->dwelling = 0.0;
+	this->contents = 0.0;
+	this->liability = 0.0;
+	this->policyType = POLICY_HOME;
 	return;
 }
 
@@ -24,7 +25,7 @@ ostream &operator<<(ostream &s, const HomePolicy &p)
   s << p.sqFootage << " ";
   s << p.dwelling << " ";
   s << p.contents << " ";
-  s << p.liability << endl;
+  s << p.liability;
   return s;
 }
 
