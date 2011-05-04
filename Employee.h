@@ -21,6 +21,8 @@ class Employee
 		virtual void calcCommission(void); // Calc commission, depends on employee
 		float accumulateCommission(void);	// Accumulate commissions from all sales
 		void addPolicy(Policy *p); // Add a policy to the policyList
+		unsigned int getNumPolicies(void);	// Return the number of policies
+		Policy *getPolicy(unsigned int p);	// Return pointer to policy at p
 	protected:
 		void calcTotalSalary(void);	// Calculate total salary
 		string name;

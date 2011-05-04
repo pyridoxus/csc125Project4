@@ -70,3 +70,16 @@ void Employee::calcCommission(void)
 {
 	return;
 }
+
+// Return the number of policies
+unsigned int Employee::getNumPolicies(void)
+{
+	return this->policyList.size();
+}
+
+// Return pointer to policy at p
+Policy *Employee::getPolicy(unsigned int p)
+{
+	if(p >= this->policyList.size()) return 0;
+	return this->policyList.at(p);
+}

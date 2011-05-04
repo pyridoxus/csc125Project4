@@ -83,6 +83,48 @@ void PolicyManager::showAllSales(void)
 // List all sales by all employees in tabular
 void PolicyManager::showTabularSales(void)
 {
+	Employee *emp;
+	Policy *policy;
+	unsigned int e, p, n;	// List indices
+	float f[3];	// Policy accumulators
+	cout << "                  Table of Commissions" << endl;
+	cout << "|       Employee       |   Auto   |   Home   |   Life   |" << endl;
+	cout << "---------------------------------------------------------" << endl;
+	for(e = 0; e < this->employees.size(); e++)
+	{
+		emp = this->employees.at(e);
+		cout << "| ";
+		cout.width(20);
+		cout << emp->getName();
+		cout << " | ";
+		for(n = 0; n < 3; n++) f[n] = 0.0;
+		for(p = 0; p < emp->getNumPolicies(); p++)
+		{
+			policy = emp->getPolicy(p);	// Returns 0 if invalid for some reason
+			if(policy)	// Check to make sure it's valid
+			{
+				switch(policy->getType())
+				{
+					case POLICY_AUTO:
+						f[POLICY_AUTO] += policy->getCommission();
+					break;
+					case POLICY_HOME:
+						f[POLICY_HOME] += policy->getCommission();
+					break;
+					case POLICY_LIFE:
+						f[POLICY_LIFE] += policy->getCommission();
+					break;
+				}
+			}
+		}
+		for(n = 0; n < 3; n++)
+		{
+			cout.width(8);
+			cout << f[n];
+			cout << " | ";
+		}
+		cout << endl;
+	}
 	return;
 }
 

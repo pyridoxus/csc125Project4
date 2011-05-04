@@ -7,6 +7,7 @@ AutoPolicy::AutoPolicy():Policy()
 	VIN = "";
 	liability = 0.0;
 	collision = 0.0;
+	policyType = POLICY_AUTO;
 	return;
 }
 

@@ -40,3 +40,9 @@ ostream &operator<<(ostream &s, const Policy &p)
   return s;
 }
 
+//Return the type of the policy
+int Policy::getType(void)
+{
+	return this->policyType;
+}
+
