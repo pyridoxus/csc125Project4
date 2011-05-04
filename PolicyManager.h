@@ -19,20 +19,21 @@ class PolicyManager
 	public:
 		PolicyManager();
 		virtual ~PolicyManager();
-		void showAllEmployees(int isType);	// List of employees only
+		unsigned int showAllEmployees(int isType);	// List of employees only
 		void showAllSales(void);	//  List of all sales only
 		void showTabularSales(void);	// List all sales by all employees in tabular
-		void showEmployeeSales(int e);	//  List all sales by one employee
-		void showManagerSales(int e);	// List all sales by employees of one manager
+		void showEmployeeSales(Employee *emp);	//  List all sales by one employee
+		void showManagerSales(Employee *manager);	// List sales by employees of manager
 		void policyMenu(void);	// Display menu, create, and append policy to vector
 		void employeeMenu(void);	// Display menu, create, append employee to vector
-		unsigned int selectEmployee(int isType); // Display employees and select
+		Employee *selectEmployee(int isType); // Display employees and select
 	private:
 		vector<Policy *> policies;
 		vector<Employee *> employees;
 		void assignPolicy(Policy *p);	// Display employees to assign the policy
 		void assignManager(Salesperson *e);	// Display managers to assign employee
 		int getNumberEmployees(int isType);	// Return number of type of employees
+		void printPolicyHeader(void);	// Just to not have duplicate code
 };
 
 #endif

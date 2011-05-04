@@ -26,6 +26,8 @@ class Employee
 		float getCommissions(void);	// Return commissions of this employee
 		virtual Employee *getManager(void) { return 0; };	// Get pointer to manager
 		virtual void setManager(Employee *) {};	// Set pointer to manager (link)
+		virtual unsigned int getNumSalesperson(void) { return 0; };
+		virtual Employee *getSalesperson(unsigned int p) { return 0; };
 	protected:
 		void calcTotalSalary(void);	// Calculate total salary
 		string name;

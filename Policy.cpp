@@ -34,9 +34,23 @@ ostream &operator<<(ostream &s, const Policy &p)
 {
 	s.width(20);
   s << p.nameOfInsured;
-  s << " |";
+  s << " | ";
 	s.width(20);
   s << p.commission;
+  s << " | ";
+	s.width(20);
+	switch(p.policyType)
+	{
+		case POLICY_AUTO:
+			s << "AUTO POLICY";
+		break;
+		case POLICY_HOME:
+			s << "HOME POLICY";
+		break;
+		case POLICY_LIFE:
+			s << "LIFE POLICY";
+		break;
+	}
   return s;
 }
 

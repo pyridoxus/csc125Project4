@@ -31,3 +31,15 @@ void Manager::calcCommission(void)
 	}
 	return;
 }
+
+// Return the number of salespeople reporting to this manager
+unsigned int Manager::getNumSalesperson(void)
+{
+	return this->salespersonList.size();
+}
+
+// Return the pointer to sales person in the salespersonList
+Employee *Manager::getSalesperson(unsigned int p)
+{
+	return this->salespersonList.at(p);
+}

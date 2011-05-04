@@ -22,7 +22,7 @@ PolicyManager::~PolicyManager()
 // If isType == 2, only show salespeople.
 // The index shown will be the index in the main list, and not the numerical
 // order that one would expect to see on the screen.
-void PolicyManager::showAllEmployees(int isType)
+unsigned int PolicyManager::showAllEmployees(int isType)
 {
 	Employee *emp;
 	unsigned int e;
@@ -63,16 +63,14 @@ void PolicyManager::showAllEmployees(int isType)
 			break;
 		}
 	}
-	return;
+	return e;
 }
 
 //  List of all sales only
 void PolicyManager::showAllSales(void)
 {
 	unsigned int p;
-	cout << endl << "          List of Policies" << endl;
-	cout << "-----------------------------------------------" << endl;
-	cout << "          Name of Insured |          Commission" << endl;
+	printPolicyHeader();
 	for(p = 0; p < this->policies.size(); p++)
 	{
 		cout << "  " << p + 1 << ") " << *this->policies.at(p) << endl;
@@ -130,29 +128,39 @@ void PolicyManager::showTabularSales(void)
 
 //  List all sales by one employee
 // e is index to employee
-void PolicyManager::showEmployeeSales(int e)
+void PolicyManager::showEmployeeSales(Employee *emp)
 {
-	Employee *emp;
 	unsigned int n;
-	emp = this->employees.at(e - 1);
+	cout << endl;
 	cout << "Sales for Employee" << endl;
-	cout << "--------------------------------------------" << endl;
-	cout << "----        Name      |  Total Salary   ----" << endl;
+	cout << "-------------------------------------------" << endl;
+	cout << "----       Name      |  Total Salary   ----" << endl;
 	cout << *emp << endl;
-	cout << endl << "          List of Policies" << endl;
-	cout << "-----------------------------------------------" << endl;
-	cout << "          Name of Insured |          Commission" << endl;
+	printPolicyHeader();
 	for(n = 0; n < emp->getNumPolicies(); n++)
 	{
-		cout << *emp->getPolicy(n) << endl;
+		cout << "  " << n + 1 << ") " << *emp->getPolicy(n) << endl;
 	}
 	return;
 }
 
 // List all sales by employees of one manager
 // e is index to employee, and employee must be a manager
-void PolicyManager::showManagerSales(int e)
+void PolicyManager::showManagerSales(Employee *manager)
 {
+	Employee *sales;
+	unsigned int s;
+	if(!manager->isManager())
+	{
+		cout << "Selected employee is not a manager." << endl;
+		return;
+	}
+	for(s = 0; s < manager->getNumSalesperson(); s++)
+	{
+		sales = manager->getSalesperson(s);
+		this->showEmployeeSales(sales);
+		cout << endl;
+	}
 	return;
 }
 
@@ -206,30 +214,37 @@ void PolicyManager::assignPolicy(Policy *p)
 {
 	Employee *emp;
 	Employee *manager;
-	unsigned int c = 0;
-	while(c == 0)
+	cout << endl << "Assign Policy To Employee" << endl;
+	emp = this->selectEmployee(EMPLOYEE_ALL);
+	if(emp)
 	{
-		cout << endl << "Assign Policy To Employee" << endl;
-		c = this->selectEmployee(EMPLOYEE_ALL);
-	}
-	emp = this->employees.at(c - 1);
-	emp->addPolicy(p);	// Add policy to list inside salesperson
-	emp->calcCommission();	// Update their commissions and salary
-	if(!emp->isManager())	// If salesperson, then update manager's salary
-	{
-		manager = emp->getManager();
-		manager->calcCommission();
+		emp->addPolicy(p);	// Add policy to list inside salesperson
+		emp->calcCommission();	// Update their commissions and salary
+		if(!emp->isManager())	// If salesperson, then update manager's salary
+		{
+			manager = emp->getManager();
+			manager->calcCommission();
+		}
 	}
 	return;
 }
 
 // Display employees and select.
-unsigned int PolicyManager::selectEmployee(int isType)
+Employee *PolicyManager::selectEmployee(int isType)
 {
 	unsigned int e = 0;
+	if(this->employees.size() == 0)
+	{
+		cout << "There are no employees to select." << endl;
+		return 0;
+	}
 	while(e == 0)
 	{
-		this->showAllEmployees(isType);
+		if(!this->showAllEmployees(isType))
+		{
+			cout << "There are no employees of that kind to select." << endl;
+			return 0;
+		}
 		cout << "  Enter selection: ";
 		cin >> e;
 		if(e > this->employees.size())
@@ -238,7 +253,7 @@ unsigned int PolicyManager::selectEmployee(int isType)
 			cout << "Invalid selection" << endl;
 		}
 	}
-	return e;
+	return this->employees.at(e - 1);
 }
 
 // Display menu, create, append employee to vector
@@ -288,11 +303,12 @@ void PolicyManager::employeeMenu(void)
 void PolicyManager::assignManager(Salesperson *e)
 {
 	Employee *manager;
-	unsigned int m;
-	m = this->selectEmployee(EMPLOYEE_MANAGER);
-	manager = this->employees.at(m - 1);
-	manager->addSalesperson(e);
-	e->setManager(manager);
+	manager = this->selectEmployee(EMPLOYEE_MANAGER);
+	if(manager)
+	{
+		manager->addSalesperson(e);
+		e->setManager(manager);
+	}
 	return;
 }
 
@@ -322,3 +338,13 @@ int PolicyManager::getNumberEmployees(int isType)
 	return c;
 }
 
+// Print the header in the list of policies
+void PolicyManager::printPolicyHeader(void)
+{
+	cout << endl << "          List of Policies" << endl;
+	cout << "--------------------------------------------------";
+	cout << "---------------------" << endl;
+	cout << "          Name of Insured |           Commission  |";
+	cout << "     Type of Policy" << endl;
+	return;
+}

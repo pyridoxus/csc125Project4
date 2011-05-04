@@ -19,28 +19,9 @@ char showMainMenu(void)
 
 int main(void)
 {
-//	AutoPolicy *autoPolicy;
-//	HomePolicy *homePolicy;
-//	LifePolicy *lifePolicy;
-//
-//	autoPolicy = new AutoPolicy;
-//	autoPolicy->inputPolicy();
-//	cout << *autoPolicy;
-//
-//	homePolicy = new HomePolicy;
-//	homePolicy->inputPolicy();
-//	cout << *homePolicy;
-//
-//	lifePolicy = new LifePolicy;
-//	lifePolicy->inputPolicy();
-//	cout << *lifePolicy;
-//
-//	delete autoPolicy;
-//	delete homePolicy;
-//	delete lifePolicy;
-
 	PolicyManager insurance;
 	char c = 1;
+	Employee *e;
 	insurance = PolicyManager();
 	while(c != 0)
 	{
@@ -57,12 +38,12 @@ int main(void)
 				insurance.showTabularSales();
 			break;
 			case '4':
-				insurance.showEmployeeSales(\
-						insurance.selectEmployee(EMPLOYEE_ALL));
+				e = insurance.selectEmployee(EMPLOYEE_ALL);
+				if(e) insurance.showEmployeeSales(e);
 			break;
 			case '5':
-				insurance.showManagerSales(\
-						insurance.selectEmployee(EMPLOYEE_MANAGER));
+				e = insurance.selectEmployee(EMPLOYEE_MANAGER);
+				if(e) insurance.showManagerSales(e);
 			break;
 			case '6':
 				insurance.employeeMenu();
