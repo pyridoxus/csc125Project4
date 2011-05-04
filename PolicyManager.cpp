@@ -129,9 +129,23 @@ void PolicyManager::showTabularSales(void)
 }
 
 //  List all sales by one employee
-// e is index to employee, and employee must NOT be a manager
+// e is index to employee
 void PolicyManager::showEmployeeSales(int e)
 {
+	Employee *emp;
+	unsigned int n;
+	emp = this->employees.at(e - 1);
+	cout << "Sales for Employee" << endl;
+	cout << "--------------------------------------------" << endl;
+	cout << "----        Name      |  Total Salary   ----" << endl;
+	cout << *emp << endl;
+	cout << endl << "          List of Policies" << endl;
+	cout << "-----------------------------------------------" << endl;
+	cout << "          Name of Insured |          Commission" << endl;
+	for(n = 0; n < emp->getNumPolicies(); n++)
+	{
+		cout << *emp->getPolicy(n) << endl;
+	}
 	return;
 }
 

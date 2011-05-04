@@ -58,7 +58,7 @@ int main(void)
 			break;
 			case '4':
 				insurance.showEmployeeSales(\
-						insurance.selectEmployee(EMPLOYEE_SALESPERSON));
+						insurance.selectEmployee(EMPLOYEE_ALL));
 			break;
 			case '5':
 				insurance.showManagerSales(\
